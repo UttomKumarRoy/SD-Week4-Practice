@@ -1,10 +1,8 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
+
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('form/', views.form, name='form'),
-    path('about/', views.about, name='about'),
-    path('model/', views.model, name='model'),
-    path('delete/<int:roll>', views.delete_student, name='delete_student'),
-   
+    path('', views.index, name='index'),
+    path('myform/', views.my_form_view, name='my_form'),
+    path('blog/', views.blog_post_list, name='blog_post_list'),
 ]

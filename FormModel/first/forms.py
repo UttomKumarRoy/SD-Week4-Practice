@@ -1,13 +1,18 @@
-from django import forms
-from django.core import validators
+from django import forms  
+import datetime
 
-# widgets == field to html input
-class contactForm(forms.Form):
-    name = forms.CharField(label="Full Name : ", help_text="Total length must be within 70 characters", required=False, error_messages={'required': 'Please enter your name.'},widget = forms.Textarea(attrs = {'id' : 'text_area', 'class' : 'class1 class 2', 'placeholder' : 'Enter your name'},))
-    email = forms.EmailField(label = "User Email")
-    # age = forms.IntegerField()
-    # weight = forms.FloatField()
-    # balance = forms.DecimalField()
+class MyForm(forms.Form):
+    name = forms.CharField(label='Your Name', max_length=100)
+    email = forms.EmailField(label='Your Email')
+    comment = forms.CharField(widget=forms.Textarea)
+    email = forms.EmailField()
+    agree = forms.BooleanField()
+    date = forms.DateField()
+    birth_date = forms.DateField(widget=forms.NumberInput(attrs={'type': 'date'}))
+    BIRTH_YEAR_CHOICES = ['1980', '1981', '1982']
+    birth_year = forms.DateField(widget=forms.SelectDateWidget(years=BIRTH_YEAR_CHOICES))
+    value = forms.DecimalField()
+    agree = forms.BooleanField(initial=True)
     age = forms.CharField(widget=forms.NumberInput)
     check = forms.BooleanField()
     birthday = forms.CharField(widget=forms.DateInput(attrs= {'type' : 'date'}))
@@ -16,4 +21,16 @@ class contactForm(forms.Form):
     size = forms.ChoiceField(choices=CHOICES, widget = forms.RadioSelect)
     MEAL = [('P', 'Pepperoni'), ('M', 'Mashroom'), ('B', 'Beef')]
     pizza = forms.MultipleChoiceField(choices=MEAL, widget=forms.CheckboxSelectMultiple)
-    
+    day = forms.DateField(initial=datetime.date.today)
+    FAVORITE_COLORS_CHOICES = [
+        ('blue', 'Blue'),
+        ('green', 'Green'),
+        ('black', 'Black'),
+    ]                                                                                                                                                                                                                       
+    favorite_color = forms.ChoiceField(widget=forms.RadioSelect, choices=FAVORITE_COLORS_CHOICES)
+    first_name = forms.CharField(max_length = 200)  
+    last_name = forms.CharField(max_length = 200)  
+    roll_number = forms.IntegerField(  
+                     help_text = "Enter 6 digit roll number"
+                     )  
+    password = forms.CharField(widget = forms.PasswordInput())  
